@@ -3,39 +3,53 @@
     <div id="page-content">
       <b-navbar toggleable="md" type="dark" class="heading-bar  col-12 col-sm-12">
         <div class="no-padding d-flex justify-content-between col-12 col-sm-12" v-click-outside="onClickOutside">
-          <ul ref="headingSum" class="heading-summary p-relative" @click="clickHeading()">
-            <li id="network-volume">
-              <span class="light-text">{{ $t('status_bar.network_volume') }}</span><br />
-              <span class="topbar-value">{{ networkVolume }}</span>
-              <img v-if="this.indexShowmore == 0" class="show-more" src="/images/drop-down.svg"/>
-            </li>
-            <li id="knc-price">
-              <span class="light-text">{{ $t('status_bar.knc_price') }}</span><br />
-              <span class="topbar-value">
+          <!-- <ul ref="headingSum" class="heading-summary p-relative" @click="clickHeading()"> -->
+            <flickity ref="flickity" :options="flickityOptions" class="heading-summary-flickity pl-3">
+            <!-- <div class="carousel-cell">1</div>
+            <div class="carousel-cell">2</div>
+            <div class="carousel-cell">3</div>
+            <div class="carousel-cell">4</div>
+            <div class="carousel-cell">5</div> -->
+          
+            <div class="carousel-cell">
+              <div class="light-text">{{ $t('status_bar.network_volume') }}</div>
+              <div class="topbar-value">{{ networkVolume }}</div>
+              <!-- <img v-if="this.indexShowmore == 0" class="show-more" src="/images/drop-down.svg"/> -->
+            </div>
+            <div class="carousel-cell">
+              <div class="light-text">{{ $t('status_bar.knc_price') }}</div>
+              <div class="topbar-value">
                 {{ kncPrice }} 
-                </span>
-              <span class="topbar-value" :class="getPriceChangeClass(this.kncPriceChange24h)">({{ formatedKNCPriceChange24h }})</span>
-              <img v-if="this.indexShowmore == 1" class="show-more" src="/images/drop-down.svg"/>
-            </li>
+                <span class="topbar-value" :class="getPriceChangeClass(this.kncPriceChange24h)">({{ formatedKNCPriceChange24h }})</span>
+                </div>
+              
+              <!-- <img v-if="this.indexShowmore == 1" class="show-more" src="/images/drop-down.svg"/> -->
+            </div>
 
-            <li id="eth-price">
-              <span class="light-text">{{ $t('status_bar.eth_price') }}</span><br />
-              <span class="topbar-value" >{{ ethPrice }} </span>
-              <span class="topbar-value" :class="getPriceChangeClass(this.ethPriceChange24h)">({{ formatedETHPriceChange24h }})</span>
-              <img v-if="this.indexShowmore == 2" class="show-more" src="/images/drop-down.svg"/>
-            </li>
+            <div class="carousel-cell">
+              <div class="light-text">{{ $t('status_bar.eth_price') }}</div>
+              <div class="topbar-value" >
+                {{ ethPrice }} 
+                <span class="topbar-value" :class="getPriceChangeClass(this.ethPriceChange24h)">({{ formatedETHPriceChange24h }})</span>
+              </div>
+              
+              <!-- <img v-if="this.indexShowmore == 2" class="show-more" src="/images/drop-down.svg"/> -->
+            </div>
 
-            <li id="fee-to-burn">
-              <span class="light-text">{{ $t('status_bar.collected_fees') }}</span><br />
-              <span class="topbar-value">{{ collectedFees }}</span>
-              <img v-if="this.indexShowmore == 3" class="show-more" src="/images/drop-down.svg"/>
-            </li>
+            <div class="carousel-cell">
+              <div class="light-text">{{ $t('status_bar.collected_fees') }}</div>
+              <div class="topbar-value">{{ collectedFees }}</div>
+              <!-- <img v-if="this.indexShowmore == 3" class="show-more" src="/images/drop-down.svg"/> -->
+            </div>
                 
 
-            <li id="total-burn-fee">
-              <span class="light-text">{{ $t('status_bar.fees_burned') }}</span><br />
-              <span class="topbar-value">{{ totalBurnedFee }}</span>
-            </li> 
+            <div class="carousel-cell">
+              <div class="light-text">{{ $t('status_bar.fees_burned') }}</div>
+              <div class="topbar-value">{{ totalBurnedFee }}</div>
+            </div> 
+            </flickity>
+
+            
 
             <!-- <i class="fas fa-caret-down fa-2x show-more"></i> -->
             <!-- <img class="show-more" src="/images/drop-down.svg"/> -->
@@ -49,7 +63,9 @@
                 
             </li>
              -->
-          </ul>
+          <!-- </ul> -->
+
+          
 
           <div ref="searchComponent" class="p-relative cursor-pointer d-flex justify-content-end pt-2 pb-2 pr-3" >
             <vue-autosuggest
@@ -238,7 +254,22 @@ export default {
       searchData: [],
       addressesMetamask: [],
       isOpenFee: false,
-      indexShowmore: -1
+      indexShowmore: -1,
+
+      flickityOptions: {
+        initialIndex: 3,
+        prevNextButtons: false,
+        pageDots: false,
+        // wrapAround: true,
+        // contain: false,
+        freeScroll: true,
+        contain: true,
+        cellAlign: 'left',
+        initialIndex: 0,
+        autoPlay: 6000,
+        pauseAutoPlayOnHover: false
+        // any options from Flickity can be used
+      }
 
     };
   },
@@ -331,6 +362,8 @@ export default {
         this.tradeCount = stats.tradeCount;
         this.totalBurnedFee = stats.totalBurnedFee + " KNC";
         this.collectedFees = stats.collectedFees + " KNC";
+
+        this.$refs.flickity.resize();
       });
 
       request
@@ -343,6 +376,8 @@ export default {
 
           this.kncPrice = "$" + parseFloat(data.price_usd).toFixed(2);
           this.kncPriceChange24h = parseFloat(data.percent_change_24h);
+
+          this.$refs.flickity.resize();
         });
 
       request
@@ -355,13 +390,15 @@ export default {
 
           this.ethPrice = "$" + parseFloat(data.price_usd).toFixed(2);
           this.ethPriceChange24h = parseFloat(data.percent_change_24h);
+          
+          this.$refs.flickity.resize();
         });
     },
     doSearch() {
       if(this.$mq == 'sm' || this.$mq == 'ml'){
         if(this.$refs.seatchInputRef.$el && this.$refs.seatchInputRef.$el.className.indexOf("search-expand") == -1){
           this.$refs.seatchInputRef.$el.className = "search-expand ml-0"
-          this.$refs.headingSum.className = "d-none"
+          this.$refs.flickity.className = "d-none"
           this.$refs.searchComponent.className += ' col-12'
           return
         } 
@@ -418,7 +455,7 @@ export default {
     },
     onClickOutside(){
       this.$refs.seatchInputRef.$el.className = ""
-      this.$refs.headingSum.className = "heading-summary p-relative"
+      this.$refs.flickity.className = "heading-summary-flickity pl-3"
       this.$refs.searchComponent.className = 'p-relative cursor-pointer d-flex justify-content-end pt-2 pb-2 pr-3'
 
     },
@@ -486,11 +523,13 @@ export default {
 
 
     this.debouncedOnResize = _.debounce(this.handleResize, 500)
-    window.addEventListener('resize', () => {
-      this.indexShowmore = -1
-      this.debouncedOnResize()
-    })
-    this.handleResize()
+    // window.addEventListener('resize', () => {
+    //   this.indexShowmore = -1
+    //   this.debouncedOnResize()
+    // })
+    setTimeout(() => {
+      this.$refs.flickity.resize();
+    }, 1000);
   },
   directives: {
     ClickOutside

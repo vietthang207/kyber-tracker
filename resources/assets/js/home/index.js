@@ -10,6 +10,7 @@ import VuePaginate from 'vuejs-paginate';
 import VueDatePicker from 'vuejs-datepicker';
 import moment from 'moment';
 import VTooltip from 'v-tooltip'
+import Flickity from 'vue-flickity';
 
 import App from './components/App.vue';
 import DataTable from '../core/components/DataTable.vue';
@@ -18,6 +19,7 @@ import TokenLink from '../core/components/TokenLink.vue';
 import ChartVolume from '../core/components/ChartVolume.vue';
 import ChartFee from '../core/components/ChartFee.vue';
 import ChartToken from '../core/components/ChartToken.vue';
+
 // import ImportAcount from '../core/components/ImportAccount.vue';
 import VueAutosuggest from "vue-autosuggest";
 import VueMq from 'vue-mq'
@@ -65,6 +67,7 @@ Vue.component('chart-token', ChartToken);
 // Vue.component('import-acount', ImportAcount)
 Vue.component('paginate', VuePaginate);
 Vue.component('datepicker', VueDatePicker);
+Vue.component('flickity', Flickity);
 
 
 // const locale = localStorage.getItem('locale') || 'en';

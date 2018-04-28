@@ -724,6 +724,19 @@ a:hover, .second-heading-bar a:active, .second-heading-bar a:focus {
   display: inline-block;
   vertical-align: middle;
 }
+.heading-summary-flickity{
+  width: 100%;
+  .carousel-cell{
+    // width: 100%;
+    float: left;
+    margin-right: 15px;
+    margin-top: 6px;
+    color: #fff;
+    min-width: 105px;
+    padding-bottom: 15px;
+    white-space: nowrap;
+  }
+}
 
 .heading-summary {
   list-style: none;
