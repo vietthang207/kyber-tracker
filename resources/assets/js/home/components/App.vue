@@ -258,9 +258,15 @@ export default {
 
       flickityOptions: {
         initialIndex: 3,
-        prevNextButtons: false,
+        // prevNextButtons: false,
         pageDots: false,
         // wrapAround: true,
+        arrowShape: { 
+          x0: 10,
+          x1: 70, y1: 40,
+          x2: 70, y2: 40,
+          x3: 70
+        },
         // contain: false,
         freeScroll: true,
         contain: true,
@@ -306,10 +312,12 @@ export default {
       window.location.reload();
     },
     handleResize (event) { 
-      let arrayLi = this.$refs.headingSum.children
-      if(arrayLi && arrayLi.length){
-        this.indexShowmore = [...arrayLi].findIndex( x => x.offsetTop > 60) - 1
-      }
+      // let arrayLi = this.$refs.headingSum.children
+      // if(arrayLi && arrayLi.length){
+      //   this.indexShowmore = [...arrayLi].findIndex( x => x.offsetTop > 60) - 1
+      // }
+
+      this.$refs.flickity.resize();
     },
     getLanguage() {
       if (
@@ -514,6 +522,10 @@ export default {
       this.connectMetaMask();
     }
   },
+  beforeDestroy: function () {
+    window.removeEventListener('resize', this.handleResize)
+    window.clearInterval(this.intervalResize)
+  },
 
   mounted() {
     
@@ -527,9 +539,10 @@ export default {
     //   this.indexShowmore = -1
     //   this.debouncedOnResize()
     // })
-    setTimeout(() => {
+    this.intervalResize = window.setInterval(() => {
       this.$refs.flickity.resize();
     }, 1000);
+    window.addEventListener('resize', this.handleResize)
   },
   directives: {
     ClickOutside

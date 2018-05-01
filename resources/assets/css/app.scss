@@ -122,6 +122,34 @@ a {
   -moz-transition: height 2s ease;
   transition: height 2s ease;
 
+  .flickity-button {
+    background: transparent;
+    &:hover{
+      background: transparent;
+    }
+  }
+
+  .flickity-button-icon {
+    fill:  rgba(255, 255, 255, 0.56);
+  }
+
+  .flickity-prev-next-button {
+    width: 20px;
+    height: 20px;
+  }
+
+  .flickity-button:disabled {
+    display: none;
+  }
+
+  .flickity-prev-next-button.previous {
+    left: -2px;
+    top: 27px;
+  }
+  .flickity-prev-next-button.next {
+    right: -15px;
+    top: 27px;
+  }
 }
 
 .panel-title{
