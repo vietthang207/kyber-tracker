@@ -258,7 +258,7 @@ export default {
 
       flickityOptions: {
         initialIndex: 3,
-        // prevNextButtons: false,
+        prevNextButtons: false,
         pageDots: false,
         // wrapAround: true,
         arrowShape: { 
@@ -268,13 +268,13 @@ export default {
           x3: 70
         },
         // contain: false,
-        groupCells: true,
+        // groupCells: true,
         draggable: true,
         freeScroll: true,
         contain: true,
         cellAlign: 'left',
         initialIndex: 0,
-        autoPlay: 6000,
+        autoPlay: 5000,
         pauseAutoPlayOnHover: false
         // any options from Flickity can be used
       }
