@@ -268,6 +268,8 @@ export default {
           x3: 70
         },
         // contain: false,
+        groupCells: true,
+        draggable: true,
         freeScroll: true,
         contain: true,
         cellAlign: 'left',
@@ -526,6 +528,9 @@ export default {
     window.removeEventListener('resize', this.handleResize)
     window.clearInterval(this.intervalResize)
   },
+  updated: function () {
+    this.$refs.flickity.resize();
+  },
 
   mounted() {
     
@@ -541,7 +546,7 @@ export default {
     // })
     this.intervalResize = window.setInterval(() => {
       this.$refs.flickity.resize();
-    }, 1000);
+    }, 2000);
     window.addEventListener('resize', this.handleResize)
   },
   directives: {
