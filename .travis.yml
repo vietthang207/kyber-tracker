@@ -30,7 +30,7 @@ script:
 
 after_success:
   - docker --version
-  - docker build -f Dockerfile -t kybernetwork/kyber-tracker:$TRAVIS_COMMIT .
+  - docker build -f Dockerfile -t vietthang207/kyber-tracker:$TRAVIS_COMMIT .
 
 deploy:
   provider: script

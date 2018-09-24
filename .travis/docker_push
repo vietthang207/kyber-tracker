@@ -3,7 +3,7 @@
 set -euo pipefail
 
 readonly docker_password=${DOCKER_PASSWORD:-}
-readonly docker_repository=kybernetwork/kyber-tracker
+readonly docker_repository=vietthang207/kyber-tracker
 
 if [[ -z "$docker_password" ]]; then
     echo 'DOCKER_PASSWORD is not available, aborting.'
